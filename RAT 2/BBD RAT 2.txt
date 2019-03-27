@@ -1,0 +1,47 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 01/15/2019 07:49:16 PM
+// Design Name: 
+// Module Name: Prog_Count
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module BBD_of_RAT2(
+    
+    wire [9:0] D_IN, FROM_STACK, FROM_IMMED,
+    wire clk, PC_LD, PC_INC, RST,
+    wire [1:0] PC_MUX_SEL,
+    reg [9:0] PC_COUNT
+    );
+    
+    Prog_Count #(.n(10)) incrementing_register(
+        .D_IN       (D_IN[9:0] ),
+        .clk        (clk    ),
+        .PC_LD      (PC_LD  ),
+        .PC_INC     (PC_INC ),
+        .RST        (RST    ),
+        .PC_COUNT   (PC_COUNT[9:0])
+    );
+    
+    PC_MUX #(.n(10)) mux41(
+        .PC_MUX_SEL     (PC_MUX_SEL [1:0]),
+        .FROM_STACK     (FROM_STACK[9:0]),
+        .FROM_IMMED     (FROM_IMMED[9:0]),
+        .D_IN           (D_IN[9:0])
+    );
+        
+endmodule
